@@ -22,7 +22,7 @@
 
 - regexp-left: ^(?P<body>.*?)(?P<path>~{0,1}([0-9A-Za-z_\-.]*/)+)(?P<query>[0-9A-Za-z_\-.]*)$
   cmd-groups:
-  - stmt: ls -alFG  <path> | rg --color always "<query>"
+  - stmt: \ls -AlFG  <path> | grep --color=always "<query>"
     after: awk '{print $8}'
   fuzzy-finder-cmd: fzf -0 -1 --ansi -n8
   buffer-left: <body><path>
@@ -30,7 +30,7 @@
 
 - regexp-left: ^(?P<body>.*?) (?P<query>[0-9A-Za-z_\-.]*)$
   cmd-groups:
-  - stmt: ls -alFG --color=always | rg --color always "<query>"
+  - stmt: \ls -AlFG --color=always | grep --color=always "<query>"
     after: awk '{print $8}'
   fuzzy-finder-cmd: fzf -0 -1 --ansi -n8
   buffer-left: '<body> '
