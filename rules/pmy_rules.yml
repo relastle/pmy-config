@@ -6,20 +6,6 @@
   buffer-left: "<body>"
   buffer-right: "[]"
 
-- regexp-left: "^(?P<num>[1-9][0-9]*).for$"
-  cmd-groups:
-  - stmt: echo ''
-    after: awk '{print $0}'
-  buffer-left: 'for x in $(seq 1 <num>); do '
-  buffer-right: "; done"
-
-- regexp-left: "(?P<cmd>.+)\\.for$"
-  cmd-groups:
-  - stmt: echo ''
-    after: awk '{print $0}'
-  buffer-left: 'for x in $(<cmd>); do '
-  buffer-right: "; done"
-
 - regexp-left: ^(?P<body>.*?)(?P<path>~{0,1}([0-9A-Za-z_\-.]*/)+)(?P<query>[0-9A-Za-z_\-.]*)$
   cmd-groups:
   - stmt: \ls -AlFG --color=always <path> | tail -n +2 | grep --color=always "<query>"
