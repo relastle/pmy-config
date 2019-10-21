@@ -20,18 +20,18 @@
   buffer-left: 'for x in $(<cmd>); do '
   buffer-right: "; done"
 
-- regexp-left: "^(?P<body>.*?) (?P<query>[0-9A-Za-z_\\-.]*)$"
+- regexp-left: ^(?P<body>.*?)(?P<path>~{0,1}([0-9A-Za-z_\-.]*/)+)(?P<query>[0-9A-Za-z_\-.]*)$
   cmd-groups:
-  - stmt: command ls -AF -1 | grep "<query>"
-    after: awk '{print $0}'
-  fuzzy-finder-cmd: fzf -0 -1 --ansi
-  buffer-left: "<body> "
-  buffer-right: "[]"
+  - stmt: ls -alFG  <path> | rg --color always "<query>"
+    after: awk '{print $8}'
+  fuzzy-finder-cmd: fzf -0 -1 --ansi -n8
+  buffer-left: <body><path>
+  buffer-right: '[]'
 
-- regexp-left: "^(?P<body>.*?)(?P<path>~{0,1}([0-9A-Za-z_\\-.]*/)+)(?P<query>[0-9A-Za-z_\\-.]*)$"
+- regexp-left: ^(?P<body>.*?) (?P<query>[0-9A-Za-z_\-.]*)$
   cmd-groups:
-  - stmt: command ls -AF -1 <path> | grep "<query>"
-    after: awk '{print $0}'
-  fuzzy-finder-cmd: fzf -0 -1 --ansi
-  buffer-left: "<body><path>"
-  buffer-right: "[]"
+  - stmt: ls -alFG --color=always | rg --color always "<query>"
+    after: awk '{print $8}'
+  fuzzy-finder-cmd: fzf -0 -1 --ansi -n8
+  buffer-left: '<body> '
+  buffer-right: '[]'
